@@ -2,7 +2,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicG9saW5hLWdvcm4iLCJhIjoiY201eTZhdDJyMGc1ODJrc
 const map = new mapboxgl.Map({
     container: 'my-web-map', // map container ID
     style: 'mapbox://styles/polina-gorn/cm6iescl7008401qq67x97qm6', // style URL
-    center: [-34.683448393991625, 14.18954820578937], // starting position [lng, lat]
+    center: [-87.683448393991625, 16.18954820578937], // starting position [lng, lat]
     zoom: 2 // starting zoom level
 });
 
@@ -57,16 +57,16 @@ map.on('load', () => {
 
 // Array of marker locations and corresponding images
 const locations = [
-    { coordinates: [-71.568371, -13.383479], image: 'C:\Documents\GitHub\lab2\images\peru.jpg', title: 'Location 1' },
-    { coordinates: [-79.4, 43.66], image: 'images/photo2.png', title: 'Location 2' }
+    { coordinates: [-74.568371, -8.383479], image: 'images/peru.jpg' },
+    { coordinates: [-115.83, 55.66], image: 'images/banff.jpg' }
 ];
 
 locations.forEach(loc => {
     // Create an image element for the marker
     const img = document.createElement('img');
     img.src = loc.image;
-    img.style.width = '40px'; // Adjust size as needed
-    img.style.height = '40px';
+    img.style.width = '30px'; // Adjust size as needed
+    img.style.height = '30px';
     img.style.borderRadius = '50%'; // Makes it circular
 
     // Create a new marker with the image
