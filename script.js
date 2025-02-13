@@ -7,39 +7,26 @@ const map = new mapboxgl.Map({
 });
 
 map.on('load', () => {
-    // Add a data source containing GeoJSON data
-    map.addSource('multline-data', {
+    // adding a geojson file created on geojson.io and stylizing the layer to make the geojson visible
+    map.addSource('travels-from-moscow', {
         type: 'geojson',
-        data: {
-            "type": "Feature",
-            "geometry": {
-                "type": "MultiLineString",
-                "coordinates": [
-                    [[37.6, 55.65], [39.40, 43.66]],
-                    [[37.6, 55.65], [4.45, 52.68]]
-                ]
-            },
-            "properties": {
-                "description": "places i travelled to from Moscow"
-            }
-        }
-    })
+        data: 'https://raw.githubusercontent.com/polina-gorn/lab2/refs/heads/main/lines.geojson'
+    });
 
     map.addLayer({
-    id: 'multiline-layer',
-    type: 'line',
-    source: 'multiline-data',
-    paint: {
-        'line-color': '#ff0000', // Red color
-        'line-width': 4,
-        'line-opacity': 0.8
-
-    }
+        id: 'geojson-layer-line',
+        type: 'line',
+        source: 'travels-from-moscow',
+        paint: {
+            'line-color': '#696969',
+            'line-width': 3
+        }
+    });
 });
-})
 
-
-// Array of marker locations and corresponding images
+// Creating an array with locations to which I will attach the images
+// The locations are chosen far from the actual destination to make sure the image does not overlay the text
+// Since this map is intended for a small scale view, the precision of the image location is not important
 const locations = [
     { coordinates: [-74.568371, -8.383479], image: 'images/peru.jpg' },
     { coordinates: [-115.83, 55.66], image: 'images/banff.jpg' },
@@ -48,16 +35,15 @@ const locations = [
 ];
 
 locations.forEach(loc => {
-    // Create an image element for the marker
+    // each location mentioned above will be assigned the respective image as a marker, as well as the same width, height and border radius
     const img = document.createElement('img');
     img.src = loc.image;
-    img.style.width = '30px'; // Adjust size as needed
+    img.style.width = '30px'; 
     img.style.height = '30px';
-    img.style.borderRadius = '50%'; // Makes it circular
+    img.style.borderRadius = '50%'; 
 
-    // Create a new marker with the image
+    // creating a new marker with the image on the map
     new mapboxgl.Marker(img)
-        .setLngLat(loc.coordinates)
-        //.setPopup(new mapboxgl.Popup().setText(loc.title)) // Optional popup
-        .addTo(map);
+        .setLngLat(loc.coordinates) //assigning coordinates to the marker
+        .addTo(map); //making markers visible on the map
 });
